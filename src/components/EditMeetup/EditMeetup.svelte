@@ -10,18 +10,11 @@
     const dispatch = createEventDispatcher()
 
     let title = ''
-    let titleValid = false
     let subtitle = ''
-    let subtitleValid = false
     let description = ''
-    let descriptionValid = false
     let imageUrl = ''
-    let imageUrlValid = false
     let address = ''
-    let addressValid = false
     let contactEmail = ''
-    let contactEmailValid = false
-    let formIsValid = false
 
     const getInputValue = (e: Event) => (e.target as HTMLInputElement).value
 
