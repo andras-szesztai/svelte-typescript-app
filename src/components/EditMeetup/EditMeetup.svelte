@@ -4,6 +4,8 @@
     import TextInput from '../TextInput/TextInput.svelte'
     import Button from '../Button/Button.svelte'
 
+    const dispatch = createEventDispatcher()
+
     let title = ''
     let subtitle = ''
     let description = ''
@@ -11,7 +13,6 @@
     let address = ''
     let contactEmail = ''
 
-    const dispatch = createEventDispatcher()
     const getInputValue = (e: Event) => (e.target as HTMLInputElement).value
 
     function submitForm() {
@@ -67,7 +68,7 @@
         controlType="textarea"
         on:input={(e) => (description = getInputValue(e))}
     />
-    <Button type="submit" caption="Save" />
+    <Button type="submit">Save</Button>
 </form>
 
 <style>

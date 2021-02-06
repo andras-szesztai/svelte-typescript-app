@@ -1,5 +1,4 @@
 <script lang="ts">
-    export let caption: string
     export let type: 'submit' | 'button' = 'button'
     export let href: string | undefined = undefined
     export let mode: 'outline' | undefined = undefined
@@ -7,10 +6,10 @@
 </script>
 
 {#if href}
-    <a {href}>{caption}</a>
+    <a {href}><slot /></a>
 {:else}
     <button class="{mode} {color}" {type} on:click>
-        {caption}
+        <slot />
     </button>
 {/if}
 
