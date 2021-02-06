@@ -2,7 +2,7 @@
     import { createEventDispatcher } from 'svelte'
 
     import TextInput from '../TextInput/TextInput.svelte'
-    // import Button from '../Button/Button.svelte'
+    import Button from '../Button/Button.svelte'
     import Modal from '../Modal/Modal.svelte'
 
     const dispatch = createEventDispatcher()
@@ -27,6 +27,10 @@
             contactEmail,
             isFavorite: false,
         })
+    }
+
+    function cancel() {
+        dispatch('cancel')
     }
 </script>
 
@@ -70,8 +74,11 @@
             controlType="textarea"
             on:input={(e) => (description = getInputValue(e))}
         />
-        <!-- <Button type="submit">Save</Button> -->
     </form>
+    <div slot="footer">
+        <Button type="button" mode="outline" on:click={cancel}>Cancel</Button>
+        <Button type="button" on:click={submitForm}>Save</Button>
+    </div>
 </Modal>
 
 <style>
