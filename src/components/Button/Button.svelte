@@ -3,12 +3,13 @@
     export let href: string | undefined = undefined
     export let mode: 'outline' | undefined = undefined
     export let color: 'success' | boolean | undefined = undefined
+    export let disabled = false
 </script>
 
 {#if href}
     <a {href}><slot /></a>
 {:else}
-    <button class="{mode} {color}" {type} on:click>
+    <button class="{mode} {color}" {type} {disabled} on:click>
         <slot />
     </button>
 {/if}

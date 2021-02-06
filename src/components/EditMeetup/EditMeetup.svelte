@@ -5,17 +5,23 @@
     import Button from '../Button/Button.svelte'
     import Modal from '../Modal/Modal.svelte'
 
-    import { isEmpty } from '../../utils/validation'
+    import { isEmpty, isValidEmail } from '../../utils/validation'
 
     const dispatch = createEventDispatcher()
 
     let title = ''
     let titleValid = false
     let subtitle = ''
+    let subtitleValid = false
     let description = ''
+    let descriptionValid = false
     let imageUrl = ''
+    let imageUrlValid = false
     let address = ''
+    let addressValid = false
     let contactEmail = ''
+    let contactEmailValid = false
+    let formIsValid = false
 
     const getInputValue = (e: Event) => (e.target as HTMLInputElement).value
 
@@ -37,6 +43,18 @@
     }
 
     $: titleValid = !isEmpty(title)
+    $: subtitleValid = !isEmpty(subtitle)
+    $: descriptionValid = !isEmpty(description)
+    $: imageUrlValid = !isEmpty(imageUrl)
+    $: addressValid = !isEmpty(address)
+    $: contactEmailValid = !isValidEmail(contactEmail) && !isEmpty(contactEmail)
+    $: formIsValid =
+        titleValid &&
+        subtitleValid &&
+        descriptionValid &&
+        imageUrlValid &&
+        addressValid &&
+        contactEmailValid
 </script>
 
 <Modal title="Add or Edit Meetup" on:cancel>
@@ -53,38 +71,50 @@
             id="subtitle"
             label="Subtitle"
             value={subtitle}
+            valid={subtitleValid}
+            validityMessage="Please enter a valid subtitle."
             on:input={(e) => (subtitle = getInputValue(e))}
         />
         <TextInput
             id="address"
             label="Address"
             value={address}
+            valid={addressValid}
+            validityMessage="Please enter a valid address."
             on:input={(e) => (address = getInputValue(e))}
         />
         <TextInput
             id="imageUrl"
             label="Image URL"
             value={imageUrl}
+            valid={imageUrlValid}
+            validityMessage="Please enter a valid image url."
             on:input={(e) => (imageUrl = getInputValue(e))}
         />
         <TextInput
             id="contactEmail"
             label="Email"
             value={contactEmail}
+            valid={contactEmailValid}
             inputType="email"
+            validityMessage="Please enter a valid email."
             on:input={(e) => (contactEmail = getInputValue(e))}
         />
         <TextInput
             id="description"
             label="Description"
             value={description}
+            valid={descriptionValid}
             controlType="textarea"
+            validityMessage="Please enter a valid description."
             on:input={(e) => (description = getInputValue(e))}
         />
     </form>
     <div slot="footer">
         <Button type="button" mode="outline" on:click={cancel}>Cancel</Button>
-        <Button type="button" on:click={submitForm}>Save</Button>
+        <Button type="button" on:click={submitForm} disabled={!formIsValid}
+            >Save</Button
+        >
     </div>
 </Modal>
 
