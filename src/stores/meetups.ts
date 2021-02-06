@@ -1,4 +1,8 @@
-export let initialMeetups = [
+import { writable } from 'svelte/store'
+
+import type { IMeetup } from '../types/meetups'
+
+const initialMeetups: IMeetup[] = [
     {
         id: 'm1',
         title: 'Coding Bootcamp',
@@ -24,4 +28,28 @@ export let initialMeetups = [
     },
 ]
 
-export type TMeetup = typeof initialMeetups[0]
+const meetups = writable(initialMeetups)
+
+export const customMeetupsStore = {
+    subscribe: meetups.subscribe,
+    addMeetup: (meetup: Omit<IMeetup, 'id'>) => {
+        const newMeetup = { id: Math.random().toString(), ...meetup }
+        meetups.update((items) => [newMeetup, ...items])
+    },
+    toggleFavorite: (id: string) => {
+        meetups.update((items) => {
+            const newMeetups = [...items]
+            const updatedMeetup = newMeetups.find((m) => m.id === id)
+            const meetupIndex = newMeetups.findIndex((m) => m.id === id)
+            if (updatedMeetup) {
+                newMeetups[meetupIndex] = {
+                    ...updatedMeetup,
+                    isFavorite: !updatedMeetup.isFavorite,
+                }
+            }
+            return newMeetups
+        })
+    },
+}
+
+export default customMeetupsStore

@@ -4,11 +4,13 @@
     import Button from '../Button/Button.svelte'
     import Badge from '../Badge/Badge.svelte'
 
-    import type { TMeetup } from '../../data/meetups'
+    import type { IMeetup } from '../../types/meetups'
 
-    export let meetup: TMeetup
+    export let meetup: IMeetup
 
-    const dispatch = createEventDispatcher()
+    const dispatch = createEventDispatcher<{
+        togglefavorite: { id: string }
+    }>()
 </script>
 
 <article>

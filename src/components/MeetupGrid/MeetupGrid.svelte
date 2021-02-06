@@ -1,9 +1,9 @@
 <script lang="ts">
     import MeetupItem from '../MeetupItem/MeetupItem.svelte'
 
-    import type { TMeetup } from '../../data/meetups'
+    import type { IMeetup } from '../../types/meetups'
 
-    export let meetups: TMeetup[]
+    export let meetups: IMeetup[]
 </script>
 
 <section>

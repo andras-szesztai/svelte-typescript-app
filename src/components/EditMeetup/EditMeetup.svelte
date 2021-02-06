@@ -7,7 +7,12 @@
 
     import { isEmpty, isValidEmail } from '../../utils/validation'
 
-    const dispatch = createEventDispatcher()
+    import type { IMeetup } from '../../types/meetups'
+
+    const dispatch = createEventDispatcher<{
+        save: Omit<IMeetup, 'id'>
+        cancel: undefined
+    }>()
 
     let title = ''
     let subtitle = ''
@@ -20,7 +25,6 @@
 
     function submitForm() {
         dispatch('save', {
-            id: Math.random().toString(),
             title,
             subtitle,
             description,

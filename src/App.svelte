@@ -4,27 +4,18 @@
     import EditMeetup from './components/EditMeetup/EditMeetup.svelte'
     import Button from './components/Button/Button.svelte'
 
-    import { initialMeetups as dataMeetups } from './data/meetups'
+    import meetups from './stores/meetups'
 
-    let meetups = dataMeetups
+    import type { IMeetup } from './types/meetups'
+
     let editMode = false
 
-    function toggleFavorite(event: CustomEvent) {
-        const clickedId = event.detail.id
-        const newMeetups = [...meetups]
-        const updatedMeetup = newMeetups.find((m) => m.id === clickedId)
-        const meetupIndex = newMeetups.findIndex((m) => m.id === clickedId)
-        if (updatedMeetup) {
-            newMeetups[meetupIndex] = {
-                ...updatedMeetup,
-                isFavorite: !updatedMeetup.isFavorite,
-            }
-        }
-        meetups = newMeetups
+    function toggleFavorite(event: CustomEvent<{ id: string }>) {
+        meetups.toggleFavorite(event.detail.id)
     }
 
-    function addMeetup(event: CustomEvent) {
-        meetups = [event.detail, ...meetups]
+    function addMeetup(event: CustomEvent<Omit<IMeetup, 'id'>>) {
+        meetups.addMeetup(event.detail)
         editMode = false
     }
 
@@ -41,7 +32,7 @@
     {#if editMode}
         <EditMeetup on:save={addMeetup} on:cancel={cancelEdit} />
     {/if}
-    <MeetupGrid {meetups} on:togglefavorite={toggleFavorite} />
+    <MeetupGrid meetups={$meetups} on:togglefavorite={toggleFavorite} />
 </main>
 
 <style>
