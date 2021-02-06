@@ -83,7 +83,7 @@
 
 <style>
     form {
-        width: 90%;
+        width: 95%;
         max-width: 90%;
         margin: auto;
     }
