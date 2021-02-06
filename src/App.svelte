@@ -22,20 +22,30 @@
         }
         meetups = newMeetups
     }
+
+    function addMeetup(event: CustomEvent) {
+        meetups = [event.detail, ...meetups]
+        editMode = false
+    }
 </script>
 
 <Header />
 <main>
-    <Button caption="New Meetup" on:click={() => (editMode = true)} />
+    <div class="meetup-controls">
+        <Button caption="New Meetup" on:click={() => (editMode = true)} />
+    </div>
     {#if editMode}
-        <EditMeetup />
+        <EditMeetup on:save={addMeetup} />
     {/if}
-
     <MeetupGrid {meetups} on:togglefavorite={toggleFavorite} />
 </main>
 
 <style>
     main {
         margin-top: 5rem;
+    }
+
+    .meetup-controls {
+        margin: 1rem;
     }
 </style>
