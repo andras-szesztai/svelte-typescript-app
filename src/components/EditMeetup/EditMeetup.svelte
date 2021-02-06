@@ -5,9 +5,12 @@
     import Button from '../Button/Button.svelte'
     import Modal from '../Modal/Modal.svelte'
 
+    import { isEmpty } from '../../utils/validation'
+
     const dispatch = createEventDispatcher()
 
     let title = ''
+    let titleValid = false
     let subtitle = ''
     let description = ''
     let imageUrl = ''
@@ -32,6 +35,8 @@
     function cancel() {
         dispatch('cancel')
     }
+
+    $: titleValid = !isEmpty(title)
 </script>
 
 <Modal title="Add or Edit Meetup" on:cancel>
@@ -40,6 +45,8 @@
             id="title"
             label="Title"
             value={title}
+            valid={titleValid}
+            validityMessage="Please enter a valid title."
             on:input={(e) => (title = getInputValue(e))}
         />
         <TextInput
