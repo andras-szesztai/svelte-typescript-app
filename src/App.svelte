@@ -24,11 +24,26 @@
             imageUrl,
             address,
             contactEmail,
+            isFavorite: false,
         }
         meetups = [newMeetup, ...meetups]
     }
 
     const getInputValue = (e: Event) => (e.target as HTMLInputElement).value
+
+    function toggleFavorite(event: CustomEvent) {
+        const clickedId = event.detail.id
+        const newMeetups = [...meetups]
+        const updatedMeetup = newMeetups.find((m) => m.id === clickedId)
+        const meetupIndex = newMeetups.findIndex((m) => m.id === clickedId)
+        if (updatedMeetup) {
+            newMeetups[meetupIndex] = {
+                ...updatedMeetup,
+                isFavorite: !updatedMeetup.isFavorite,
+            }
+        }
+        meetups = newMeetups
+    }
 </script>
 
 <Header />
@@ -74,7 +89,7 @@
         />
         <Button type="submit" caption="Save" />
     </form>
-    <MeetupGrid {meetups} />
+    <MeetupGrid {meetups} on:togglefavorite={toggleFavorite} />
 </main>
 
 <style>
