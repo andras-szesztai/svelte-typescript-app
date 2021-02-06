@@ -1,17 +1,14 @@
 <script lang="ts">
     import Header from './components/Header/Header.svelte'
-    import MeetupItem from './components/MeetupItem/MeetupItem.svelte'
+    import MeetupGrid from './components/MeetupGrid/MeetupGrid.svelte'
 
     import { meetups } from './data/meetups'
 </script>
 
 <Header />
-
-<section id="meetups">
-    {#each meetups as meetup}
-        <MeetupItem {meetup} />
-    {/each}
-</section>
+<main id="meetups">
+    <MeetupGrid {meetups} />
+</main>
 
 <style>
     #meetups {
