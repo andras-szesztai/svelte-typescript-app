@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { TMeetup } from '../../data/meetups'
+    import Button from '../Button/Button.svelte'
 
     export let meetup: TMeetup
 </script>
@@ -17,9 +18,9 @@
         <p>{meetup.description}</p>
     </div>
     <footer>
-        <a href="mailto:{meetup.contactEmail}"> Contact </a>
-        <button>Show Details</button>
-        <button>Favorite</button>
+        <Button href="mailto:{meetup.contactEmail}" caption="Contact" />
+        <Button caption="Favorite" mode="outline" />
+        <Button caption="Show Details" />
     </footer>
 </article>
 
@@ -54,12 +55,12 @@
         font-family: 'Roboto Slab', sans-serif;
     }
 
-    /* h1.is-favorite {
+    h1.is-favorite {
         background: #01a129;
         color: white;
         padding: 0 0.5rem;
         border-radius: 5px;
-    } */
+    }
 
     h2 {
         font-size: 1rem;
@@ -74,5 +75,9 @@
 
     div {
         text-align: right;
+    }
+
+    .content {
+        height: 4.5rem;
     }
 </style>

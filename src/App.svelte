@@ -2,6 +2,7 @@
     import Header from './components/Header/Header.svelte'
     import MeetupGrid from './components/MeetupGrid/MeetupGrid.svelte'
     import TextInput from './components/TextInput/TextInput.svelte'
+    import Button from './components/Button/Button.svelte'
 
     import { initialMeetups as dataMeetups } from './data/meetups'
 
@@ -71,7 +72,7 @@
             controlType="textarea"
             on:input={(e) => (description = getInputValue(e))}
         />
-        <button type="submit">Save</button>
+        <Button type="submit" caption="Save" />
     </form>
     <MeetupGrid {meetups} />
 </main>
