@@ -1,4 +1,4 @@
-export const meetups = [
+export let initialMeetups = [
     {
         id: 'm1',
         title: 'Coding Bootcamp',
@@ -22,4 +22,4 @@ export const meetups = [
     },
 ]
 
-export type TMeetup = typeof meetups[0]
+export type TMeetup = typeof initialMeetups[0]
