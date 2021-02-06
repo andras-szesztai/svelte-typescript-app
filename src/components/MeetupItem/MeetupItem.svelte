@@ -1,15 +1,23 @@
+<script lang="ts">
+    import type { TMeetup } from '../../data/meetups'
+
+    export let meetup: TMeetup
+</script>
+
 <article>
     <header>
-        <h1>Title</h1>
-        <h2>Subtitle</h2>
+        <h1>{meetup.title}</h1>
+        <h2>{meetup.subtitle}</h2>
+        <p>{meetup.address}</p>
     </header>
     <div class="image">
-        <img src="" alt="" />
+        <img src={meetup.imageUrl} alt={meetup.title} />
     </div>
     <div class="content">
-        <p>Content</p>
+        <p>{meetup.description}</p>
     </div>
     <footer>
+        <a href="mailto:{meetup.contactEmail}"> Contact </a>
         <button>Show Details</button>
         <button>Favorite</button>
     </footer>
@@ -46,12 +54,12 @@
         font-family: 'Roboto Slab', sans-serif;
     }
 
-    h1.is-favorite {
+    /* h1.is-favorite {
         background: #01a129;
         color: white;
         padding: 0 0.5rem;
         border-radius: 5px;
-    }
+    } */
 
     h2 {
         font-size: 1rem;
