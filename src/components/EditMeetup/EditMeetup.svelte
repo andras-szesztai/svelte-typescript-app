@@ -9,6 +9,8 @@
 
     import { isEmpty, isValidEmail } from '../../utils/validation'
 
+    export let id: string | null = null
+
     const dispatch = createEventDispatcher<{
         save: undefined
         cancel: undefined
@@ -20,19 +22,41 @@
     let imageUrl = ''
     let address = ''
     let contactEmail = ''
+    let isFavorite = false
+
+    if (id) {
+        meetupsStore.subscribe((items) => {
+            const selectedMeetup = items.find((i) => i.id == id)
+            if (selectedMeetup) {
+                title = selectedMeetup.title
+                subtitle = selectedMeetup.subtitle
+                description = selectedMeetup.description
+                imageUrl = selectedMeetup.imageUrl
+                address = selectedMeetup.address
+                contactEmail = selectedMeetup.contactEmail
+                isFavorite = selectedMeetup.isFavorite
+            }
+        })()
+    }
 
     const getInputValue = (e: Event) => (e.target as HTMLInputElement).value
 
     function submitForm() {
-        meetupsStore.addMeetup({
+        const meetupData = {
             title,
             subtitle,
             description,
             imageUrl,
             address,
             contactEmail,
-            isFavorite: false,
-        })
+            isFavorite,
+        }
+
+        if (id) {
+            meetupsStore.updateMeetup(id, meetupData)
+        } else {
+            meetupsStore.addMeetup(meetupData)
+        }
         dispatch('save')
     }
 

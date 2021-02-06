@@ -36,6 +36,18 @@ export const customMeetupsStore = {
         const newMeetup = { id: Math.random().toString(), ...meetup }
         meetups.update((items) => [newMeetup, ...items])
     },
+    updateMeetup: (id: string, meetupData: IMeetupNoID) => {
+        meetups.update((items) => {
+            const meetupIndex = items.findIndex((item) => item.id === id)
+            if (meetupIndex) {
+                const updatedMeetup = { ...items[meetupIndex], ...meetupData }
+                const updatedMeetups = [...items]
+                updatedMeetups[meetupIndex] = updatedMeetup
+                return updatedMeetups
+            }
+            return items
+        })
+    },
     toggleFavorite: (id: string) => {
         meetups.update((items) => {
             const newMeetups = [...items]

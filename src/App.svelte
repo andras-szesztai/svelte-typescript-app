@@ -28,6 +28,9 @@
         page = 'overview'
         selectedId = null
     }
+    // function startEdit(event){
+    //     editMode = true
+    // }
 </script>
 
 <Header />

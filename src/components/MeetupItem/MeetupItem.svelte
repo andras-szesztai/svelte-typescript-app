@@ -7,7 +7,10 @@
 
     import type { IMeetup } from '../../types/meetups'
 
-    const dispatch = createEventDispatcher<{ showDetails: { id: string } }>()
+    const dispatch = createEventDispatcher<{
+        showDetails: { id: string }
+        edit: { id: string }
+    }>()
 
     export let meetup: IMeetup
 
@@ -34,7 +37,10 @@
         <p>{meetup.description}</p>
     </div>
     <footer>
-        <Button href="mailto:{meetup.contactEmail}">Contact</Button>
+        <Button
+            mode="outline"
+            on:click={() => dispatch('edit', { id: meetup.id })}>Contact</Button
+        >
         <Button
             mode="outline"
             color={meetup.isFavorite && 'success'}
