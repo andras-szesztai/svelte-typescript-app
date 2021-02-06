@@ -3,12 +3,13 @@
     export let type: 'submit' | 'button' = 'button'
     export let href: string | undefined = undefined
     export let mode: 'outline' | undefined = undefined
+    export let color: 'success' | boolean | undefined = undefined
 </script>
 
 {#if href}
     <a {href}>{caption}</a>
 {:else}
-    <button class={mode} {type} on:click>
+    <button class="{mode} {color}" {type} on:click>
         {caption}
     </button>
 {/if}

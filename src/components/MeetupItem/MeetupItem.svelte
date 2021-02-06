@@ -1,7 +1,10 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte'
-    import type { TMeetup } from '../../data/meetups'
+
     import Button from '../Button/Button.svelte'
+    import Badge from '../Badge/Badge.svelte'
+
+    import type { TMeetup } from '../../data/meetups'
 
     export let meetup: TMeetup
 
@@ -10,7 +13,12 @@
 
 <article>
     <header>
-        <h1>{meetup.title}</h1>
+        <h1>
+            {meetup.title}
+            {#if meetup.isFavorite}
+                <Badge>FAVORITE</Badge>
+            {/if}
+        </h1>
         <h2>{meetup.subtitle}</h2>
         <p>{meetup.address}</p>
     </header>
@@ -23,8 +31,9 @@
     <footer>
         <Button href="mailto:{meetup.contactEmail}" caption="Contact" />
         <Button
-            caption={!meetup.isFavorite ? 'Favorite' : 'Unfavorite'}
             mode="outline"
+            color={meetup.isFavorite && 'success'}
+            caption={!meetup.isFavorite ? 'Favorite' : 'Unfavorite'}
             on:click={() => dispatch('togglefavorite', { id: meetup.id })}
         />
         <Button caption="Show Details" />
