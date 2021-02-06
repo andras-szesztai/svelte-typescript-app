@@ -5,12 +5,12 @@
     import Button from '../Button/Button.svelte'
     import Modal from '../Modal/Modal.svelte'
 
+    import meetupsStore from '../../stores/meetups'
+
     import { isEmpty, isValidEmail } from '../../utils/validation'
 
-    import type { IMeetup } from '../../types/meetups'
-
     const dispatch = createEventDispatcher<{
-        save: Omit<IMeetup, 'id'>
+        save: undefined
         cancel: undefined
     }>()
 
@@ -24,7 +24,7 @@
     const getInputValue = (e: Event) => (e.target as HTMLInputElement).value
 
     function submitForm() {
-        dispatch('save', {
+        meetupsStore.addMeetup({
             title,
             subtitle,
             description,
@@ -33,6 +33,7 @@
             contactEmail,
             isFavorite: false,
         })
+        dispatch('save')
     }
 
     function cancel() {

@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 
-import type { IMeetup } from '../types/meetups'
+import type { IMeetup, IMeetupNoID } from '../types/meetups'
 
 const initialMeetups: IMeetup[] = [
     {
@@ -32,7 +32,7 @@ const meetups = writable(initialMeetups)
 
 export const customMeetupsStore = {
     subscribe: meetups.subscribe,
-    addMeetup: (meetup: Omit<IMeetup, 'id'>) => {
+    addMeetup: (meetup: IMeetupNoID) => {
         const newMeetup = { id: Math.random().toString(), ...meetup }
         meetups.update((items) => [newMeetup, ...items])
     },

@@ -6,16 +6,9 @@
 
     import meetups from './stores/meetups'
 
-    import type { IMeetup } from './types/meetups'
-
     let editMode = false
 
-    function toggleFavorite(event: CustomEvent<{ id: string }>) {
-        meetups.toggleFavorite(event.detail.id)
-    }
-
-    function addMeetup(event: CustomEvent<Omit<IMeetup, 'id'>>) {
-        meetups.addMeetup(event.detail)
+    function addMeetup() {
         editMode = false
     }
 
@@ -32,7 +25,7 @@
     {#if editMode}
         <EditMeetup on:save={addMeetup} on:cancel={cancelEdit} />
     {/if}
-    <MeetupGrid meetups={$meetups} on:togglefavorite={toggleFavorite} />
+    <MeetupGrid meetups={$meetups} />
 </main>
 
 <style>

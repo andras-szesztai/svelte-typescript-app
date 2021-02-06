@@ -8,3 +8,5 @@ export interface IMeetup {
     contactEmail: string
     isFavorite: boolean
 }
+
+export type IMeetupNoID = Omit<IMeetup, 'id'>

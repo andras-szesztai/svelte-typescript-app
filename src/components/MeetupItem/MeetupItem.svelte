@@ -1,16 +1,16 @@
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte'
-
     import Button from '../Button/Button.svelte'
     import Badge from '../Badge/Badge.svelte'
+
+    import meetupsStore from '../../stores/meetups'
 
     import type { IMeetup } from '../../types/meetups'
 
     export let meetup: IMeetup
 
-    const dispatch = createEventDispatcher<{
-        togglefavorite: { id: string }
-    }>()
+    function toggleFavorite(id: string) {
+        meetupsStore.toggleFavorite(id)
+    }
 </script>
 
 <article>
@@ -35,7 +35,7 @@
         <Button
             mode="outline"
             color={meetup.isFavorite && 'success'}
-            on:click={() => dispatch('togglefavorite', { id: meetup.id })}
+            on:click={() => toggleFavorite(meetup.id)}
             >{!meetup.isFavorite ? 'Favorite' : 'Unfavorite'}</Button
         >
         <Button>Show Details</Button>
