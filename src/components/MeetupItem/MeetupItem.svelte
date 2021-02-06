@@ -1,10 +1,13 @@
 <script lang="ts">
+    import { createEventDispatcher } from 'svelte'
     import Button from '../Button/Button.svelte'
     import Badge from '../Badge/Badge.svelte'
 
     import meetupsStore from '../../stores/meetups'
 
     import type { IMeetup } from '../../types/meetups'
+
+    const dispatch = createEventDispatcher<{ showDetails: { id: string } }>()
 
     export let meetup: IMeetup
 
@@ -38,7 +41,9 @@
             on:click={() => toggleFavorite(meetup.id)}
             >{!meetup.isFavorite ? 'Favorite' : 'Unfavorite'}</Button
         >
-        <Button>Show Details</Button>
+        <Button on:click={() => dispatch('showDetails', { id: meetup.id })}
+            >Show Details</Button
+        >
     </footer>
 </article>
 
