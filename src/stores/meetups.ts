@@ -39,12 +39,13 @@ export const customMeetupsStore = {
     updateMeetup: (id: string, meetupData: IMeetupNoID) => {
         meetups.update((items) => {
             const meetupIndex = items.findIndex((item) => item.id === id)
-            if (meetupIndex) {
+            if (typeof meetupIndex === 'number') {
                 const updatedMeetup = { ...items[meetupIndex], ...meetupData }
                 const updatedMeetups = [...items]
                 updatedMeetups[meetupIndex] = updatedMeetup
                 return updatedMeetups
             }
+            console.error('Could not update meetup')
             return items
         })
     },
@@ -59,6 +60,7 @@ export const customMeetupsStore = {
                     isFavorite: !updatedMeetup.isFavorite,
                 }
             }
+            console.error('Could not toggle favorite')
             return newMeetups
         })
     },
