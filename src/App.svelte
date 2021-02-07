@@ -2,7 +2,6 @@
     import Header from './components/Header/Header.svelte'
     import MeetupGrid from './components/MeetupGrid/MeetupGrid.svelte'
     import EditMeetup from './components/EditMeetup/EditMeetup.svelte'
-    import Button from './components/Button/Button.svelte'
 
     import meetups from './stores/meetups'
     import MeetupDetail from './components/MeetupDetail/MeetupDetail.svelte'
@@ -40,9 +39,6 @@
 <Header />
 <main>
     {#if page === 'overview'}
-        <div class="meetup-controls">
-            <Button on:click={() => (editMode = !editMode)}>New Meetup</Button>
-        </div>
         {#if editMode}
             <EditMeetup
                 id={editedId}
@@ -54,6 +50,7 @@
             meetups={$meetups}
             on:showDetails={showDetails}
             on:edit={startEdit}
+            on:add={() => (editMode = true)}
         />
     {:else if page === 'details' && selectedId}
         <MeetupDetail id={selectedId} on:close={closeDetails} />
@@ -63,9 +60,5 @@
 <style>
     main {
         margin-top: 5rem;
-    }
-
-    .meetup-controls {
-        margin: 1rem;
     }
 </style>
