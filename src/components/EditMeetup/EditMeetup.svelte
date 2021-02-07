@@ -64,6 +64,13 @@
         dispatch('cancel')
     }
 
+    function deleteMeetup() {
+        if (id) {
+            meetupsStore.removeMeetup(id)
+            cancel()
+        }
+    }
+
     $: titleValid = !isEmpty(title)
     $: subtitleValid = !isEmpty(subtitle)
     $: descriptionValid = !isEmpty(description)
@@ -137,6 +144,9 @@
         <Button type="button" on:click={submitForm} disabled={!formIsValid}
             >Save</Button
         >
+        {#if id}
+            <Button on:click={deleteMeetup}>Delete</Button>
+        {/if}
     </div>
 </Modal>
 

@@ -49,6 +49,11 @@ export const customMeetupsStore = {
             return items
         })
     },
+    removeMeetup: (id: string) => {
+        meetups.update((items) => {
+            return items.filter((item) => item.id !== id)
+        })
+    },
     toggleFavorite: (id: string) => {
         meetups.update((items) => {
             const newMeetups = [...items]
