@@ -1,4 +1,8 @@
-<span><slot /></span>
+<script lang="ts">
+    import { fade } from 'svelte/transition'
+</script>
+
+<span transition:fade={{ duration: 200 }}><slot /></span>
 
 <style>
     span {
